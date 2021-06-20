@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sequelize": "sequelize-auto -h 172.58.80.202 -d Kardex -u kardex -x k45D3x21 --dialect mssql -o src/api/models -v",
+    "nodemon": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
