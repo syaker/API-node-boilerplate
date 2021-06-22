@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { secret } = require('../../../config/config');
 const { nameAndLastName } = require('../../../utils/filters');
-const { getNameUserMeucci } = require('../../../controllers/Users/userController');
+const { getNameUserMeucci, getUserMeucci } = require('../../../controllers/Users/userController');
 
 //Crea token de validacion
 //Parametros:
@@ -15,7 +15,7 @@ module.exports = (router, models) => {
 
     if (!user || !password) {
       return res.json({
-        mensaje: 'Por favor ingrese su usuario o password',
+        mensaje: 'Por favor ingrese su usuario y/o password',
       });
     }
 
@@ -41,8 +41,8 @@ module.exports = (router, models) => {
               id: infUser.dataValues.id_user,
               role: infUser.dataValues.role,
             };
-
-            await getNameUserMeucci(models, user)
+            console.log(userData)
+            await getUserMeucci(models, user)
               .then((username) => {
                 const activeUser = {
                   fullName: nameAndLastName(username),
@@ -60,11 +60,14 @@ module.exports = (router, models) => {
                     //domain: 'https://172.58.80.201:8443',
                     httpOnly: true,
                     sameSite: 'none',
-                    secure: true,
+                    secure: false,
                   })
-                  .send(activeUser)
+                  .send(activeUser);
               })
-              .catch((err) => {});
+              .catch((err) => {
+                console.log(`No se ha podido obtener el usuario : \n ${err}`);
+                return next(500);
+              });
           });
         });
     }

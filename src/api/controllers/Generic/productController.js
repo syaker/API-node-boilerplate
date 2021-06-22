@@ -1,25 +1,7 @@
+const { Sequelize } = require('sequelize');
 const { updateTransaction } = require('../Core/transactionController');
 
 module.exports = {
-  getAllProducts: (models) => (req, res, next) => {
-    models.producto
-      .findAll({
-        where: { anulado: 0 },
-        limit: req.query.limit,
-        order: req.query.order,
-        attributes: { exclude: ['anulado'] },
-      })
-      .then((data) => {
-        if (!data) return next(404);
-        res.status(200).json(data);
-      })
-      .catch((e) => {
-        console.log(e);
-        res.status(500).json({
-          message: 'Error interno, no se han podido obtener los productos',
-        });
-      });
-  },
   createAProduct: (models) => async (req, res, next) => {
     const { tipo_producto, marca_producto, modelo_producto } = req.body;
 
@@ -28,7 +10,7 @@ module.exports = {
     try {
       transaction = await sequelize.transaction();
 
-      models.transaccion
+      models.producto
         .create(
           {
             tipo_producto,
@@ -61,7 +43,37 @@ module.exports = {
       },
       sequelize,
       models,
-      "producto"
+      'producto'
     );
+  },
+
+  getStock: (models) => (req, res, next) => {
+    models.detalle_transaccion
+      .findAll({
+        include: [
+          {
+            model: models.transaccion,
+            as: 'transaccion',
+            include: [
+              {
+                model: models.tipo_transaccion,
+                where: { modo_transaccion: req.params.modo },
+                as: 'tipo_transaccion',
+              },
+            ],
+          },
+        ],
+        where: {},
+      })
+      .then((data) => {
+        if (!data) return next(404);
+        res.status(200).json(data);
+      })
+      .catch((e) => {
+        console.log(e);
+        res.status(500).json({
+          message: 'Error interno, no se han podido obtener las transaccion de compra',
+        });
+      });
   },
 };

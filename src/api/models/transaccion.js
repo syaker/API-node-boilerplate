@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_sede: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'sede',
         key: 'id_sede'
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_tipo_transaccion: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'tipo_transaccion',
         key: 'id_tipo_transaccion'
@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_estado: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'estado',
         key: 'id_estado'
@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     numero_factura: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     direccion_origen: {
       type: DataTypes.STRING(50),

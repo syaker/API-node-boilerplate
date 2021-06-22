@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     numero_serie: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     anulado: {
       type: DataTypes.TINYINT,

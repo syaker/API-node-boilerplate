@@ -12,7 +12,7 @@ const nameAndLastName = (stringName) => {
     .filter((name) => [0, 2].includes(userArr.indexOf(name)))
     .reverse()
     .map((e) => e.split('')[0].toUpperCase() + e.split('').splice(1).join('').toLowerCase())
-    .join('-')
+    .join(' ')
     .toString();
   return userConverted;
 };

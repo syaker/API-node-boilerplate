@@ -14,7 +14,7 @@ module.exports = {
       .catch((e) => {
         console.log(e);
         res.status(500).json({
-          message: 'Error interno, no se han podido obtener las transaccion de compra',
+          message: 'Error interno, no se han podido obtener las transacciones',
         });
       });
   },

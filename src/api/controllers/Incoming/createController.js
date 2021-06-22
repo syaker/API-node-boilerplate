@@ -1,26 +1,6 @@
 const { updateTransaction } = require('../Core/transactionController');
 
 module.exports = {
-  getAllPurchases: (models) => (req, res, next) => {
-    models.transaccion
-      .findAll({
-        where: { anulado: 0 },
-        limit: req.query.limit,
-        order: req.query.order,
-        attributes: { exclude: ['anulado'] },
-      })
-      .then((data) => {
-        if (!data) return next(404);
-        res.status(200).json(data.dataValues);
-      })
-      .catch((e) => {
-        console.log(e);
-        res.status(500).json({
-          message: 'Error interno, no se han podido obtener las transaccion de compra',
-        });
-      });
-  },
-
   createPurchase: (models, sequelize) => async (req, res, next) => {
     const {
       id_sede,
@@ -65,7 +45,10 @@ module.exports = {
           { transaction }
         )
         .then(async (result) => {
-          if (productos == null || Object.values(productos).includes(null)) return next(400);
+          if (productos == null || Object.values(productos).includes(null)) {
+            await transaction.rollback();
+            return next(400);
+          }
 
           await Promise.all(
             productos.map((producto) => {
@@ -112,7 +95,7 @@ module.exports = {
             });
         });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       if (error) await transaction.rollback();
       res.status(500).send('Error');
     }

@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     cantidad: {
       type: DataTypes.SMALLINT,
-      allowNull: false
+      allowNull: true
     },
     anulado: {
       type: DataTypes.TINYINT,

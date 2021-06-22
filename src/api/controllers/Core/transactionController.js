@@ -1,3 +1,5 @@
+const { promises } = require('./promisesController');
+
 module.exports = {
   // tipo_transaccion
   // 1 - compra
@@ -7,20 +9,8 @@ module.exports = {
   // 5 - teletrabajo
 
   getAllTransactions: (models) => (req, res, next) => {
-    models.transaccion
-      .findAll({
-        where: { anulado: 0 },
-        limit: req.query.limit,
-        order: req.query.order,
-        include: [
-          { model: models.proveedor, as: 'proveedor' },
-          { model: models.tipo_transaccion, as: 'tipo_transaccion' },
-          { model: models.subtipo_transaccion, as: 'subtipo_transaccion' },
-          { model: models.estado, as: 'estado' },
-          { model: models.sede, as: 'sede' },
-        ],
-        attributes: { exclude: ['anulado'] },
-      })
+    promises
+      .getAllTransactions(models, req)
       .then((data) => {
         if (!data) return next(404);
         res.status(200).json(data);
@@ -28,7 +18,7 @@ module.exports = {
       .catch((e) => {
         console.log(e);
         res.status(500).json({
-          message: 'Error interno, no se han podido obtener las transaccion de compra',
+          message: 'Error interno, no se han podido obtener las transacciones',
         });
       });
   },
@@ -37,11 +27,13 @@ module.exports = {
     models.transaccion
       .findOne({
         where: { anulado: 0, id_transaccion: req.params.id_transaccion },
+        include: [{ model: models.tipo_transaccion, as: 'tipo_transaccion' }],
         attributes: { exclude: ['anulado'] },
       })
       .then((data) => {
         if (!data) return next(404);
         res.status(200).json(data.dataValues);
+        return data;
       })
       .catch((e) => {
         console.log(e);
@@ -50,8 +42,6 @@ module.exports = {
         });
       });
   },
-
-  createTransaction: (models) => (req, res, next) => {},
 
   updateTransaction: async (req, res, next, obj, sequelize, models, table) => {
     const { id_transaccion } = req.params;
