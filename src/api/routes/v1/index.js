@@ -12,7 +12,7 @@ const provider = require('./Generic/provider');
 const purchase = require('./Incoming/purchase');
 const rentalOut = require('./Outgoing/rental')
 //const dashboard = require("./dashboard");
-//const user = require("./user");
+const user = require("./Generic/user");
 
 const routes = [
   auth,
@@ -23,9 +23,9 @@ const routes = [
   subtype,
   sede,
   provider,
-  rentalOut
+  rentalOut,
   //  dashboard,
-  //  user,
+  user,
 ];
 
 const registerRoutes = (app, router, models) => {

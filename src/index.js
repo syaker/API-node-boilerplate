@@ -22,7 +22,7 @@ app.disable('x-powered-by');
 
 app.use(
   cors({
-    origin: ['http://192.168.0.27:8080/', 'http://localhost:8080'],
+    origin: ['http://192.168.0.27:8080/', 'https://localhost:8080'],
     credentials: true,
   })
 );

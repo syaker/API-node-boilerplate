@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { secret } = require('../../../config/config');
 const { nameAndLastName } = require('../../../utils/filters');
-const { getNameUserMeucci, getUserMeucci } = require('../../../controllers/Users/userController');
+const { getUserMeucci } = require('../../../controllers/Users/userController');
 
 //Crea token de validacion
 //Parametros:
@@ -41,7 +41,7 @@ module.exports = (router, models) => {
               id: infUser.dataValues.id_user,
               role: infUser.dataValues.role,
             };
-            console.log(userData)
+
             await getUserMeucci(models, user)
               .then((username) => {
                 const activeUser = {
@@ -60,7 +60,7 @@ module.exports = (router, models) => {
                     //domain: 'https://172.58.80.201:8443',
                     httpOnly: true,
                     sameSite: 'none',
-                    secure: false,
+                    secure: true,
                   })
                   .send(activeUser);
               })
