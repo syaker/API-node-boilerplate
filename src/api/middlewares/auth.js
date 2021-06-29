@@ -8,8 +8,7 @@ module.exports = (req, res, next) => {
 
   jwt.verify(token, secret, (err) => {
     if (err) {
-      console.log(err);
-      return res.sendStatus(401)
+      return res.redirect(401, 'https://localhost:8080/login')
     }
     next();
   });

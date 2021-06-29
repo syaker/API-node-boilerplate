@@ -13,6 +13,7 @@ const purchase = require('./Incoming/purchase');
 const rentalOut = require('./Outgoing/rental')
 //const dashboard = require("./dashboard");
 const user = require("./Generic/user");
+const query = require("./Core/query")
 
 const routes = [
   auth,
@@ -24,6 +25,7 @@ const routes = [
   sede,
   provider,
   rentalOut,
+  query,
   //  dashboard,
   user,
 ];
