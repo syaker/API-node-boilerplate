@@ -4,7 +4,7 @@ const {
   
   module.exports = (router, models, auth, isAdmin) => {
     // Aqui se puede estandarizar
-    router.get('/salida/:id_tipo', auth, isAdmin, createRental(models));
+    router.get('/salida/alquiler/:id_tipo', auth, isAdmin, createRental(models));
 
     return router
   };

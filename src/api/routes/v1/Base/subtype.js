@@ -1,5 +1,5 @@
 const { deleteTransaction } = require('../../../controllers/Core/transactionController');
-const { createASubtype, getAllSubtype } = require('../../../controllers/Generic/subtypeController');
+const { createASubtype, getAllSubtype } = require('../../../controllers/Base/subtypeController');
 
 module.exports = (router, models, auth, isAdmin, sequelize) => {
   router.get('/subtipo/:id_tipo', auth, getAllSubtype(models, sequelize));

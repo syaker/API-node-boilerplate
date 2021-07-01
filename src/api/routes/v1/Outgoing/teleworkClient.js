@@ -1,7 +1,7 @@
-const { createTeleworkClient } = require('../../../controllers/Incoming/teleworkClientController');
+const { createTeleworkClient } = require('../../../controllers/Outgoing/teleworkClientController');
 
-module.exports = (router, models, auth, isAdmin) => {
-  router.post('/salida/teletrabajo-cliente', auth, isAdmin, createTeleworkClient(models));
+module.exports = (router, models, auth, isAdmin, sequelize) => {
+  router.get('/salida/teletrabajo-cliente', auth, isAdmin, createTeleworkClient(models, sequelize));
 
   return router;
 };

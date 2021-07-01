@@ -1,7 +1,7 @@
 const { updateTransaction } = require('../Core/transactionController');
 
 module.exports = {
-  createPurchase: (models, sequelize) => async (req, res, next) => {
+  createController: (models, sequelize) => async (req, res, next) => {
     const {
       id_sede,
       id_tipo_transaccion, //compra, alquiler, devolucion
@@ -11,6 +11,7 @@ module.exports = {
       id_proveedor,
       id_estado,
       id_conductor,
+      modo,
       numero_factura,
       direccion_destino,
       distrito_destino,
@@ -36,6 +37,7 @@ module.exports = {
             id_proveedor,
             id_estado,
             id_conductor,
+            modo,
             numero_factura,
             direccion_origen,
             distrito_origen,

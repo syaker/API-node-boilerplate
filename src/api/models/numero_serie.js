@@ -2,22 +2,30 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('numero_serie', {
     id_numero_serie: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
+      primaryKey: true
     },
     id_detalle_transaccion: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'detalle_transaccion',
+        key: 'id_detalle_transaccion'
+      }
     },
     id_producto: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'producto',
+        key: 'id_producto'
+      }
     },
     numero_serie: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: false
     },
     anulado: {
       type: DataTypes.TINYINT,

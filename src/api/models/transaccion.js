@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_tipo_transaccion: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'tipo_transaccion',
         key: 'id_tipo_transaccion'
@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_proveedor: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'proveedor',
         key: 'id_proveedor'
@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_estado: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'estado',
         key: 'id_estado'
@@ -49,6 +49,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_conductor: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    modo: {
+      type: DataTypes.STRING(20),
       allowNull: true
     },
     numero_factura: {
@@ -67,10 +71,27 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(90),
       allowNull: true
     },
+    direccion_destino: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    distrito_destino: {
+      type: DataTypes.STRING(30),
+      allowNull: true
+    },
+    referencia_destino: {
+      type: DataTypes.STRING(90),
+      allowNull: true
+    },
     anulado: {
       type: DataTypes.TINYINT,
       allowNull: false,
       defaultValue: 0
+    },
+    fecharegistro: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('getdate')
     }
   }, {
     sequelize,

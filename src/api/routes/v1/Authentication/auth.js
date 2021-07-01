@@ -18,7 +18,7 @@ module.exports = (router, models) => {
         mensaje: 'Por favor ingrese su usuario y/o password',
       });
     }
-
+    console.log(user, password)
     if (!isNaN(user)) {
       //Buscamos en el modelo user el usuario
       models.user

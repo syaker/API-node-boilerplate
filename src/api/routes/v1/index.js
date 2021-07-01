@@ -4,16 +4,29 @@ const { sequelize } = require('../../models');
 const auth = require('./Authentication/auth');
 const isAdmin = require('../../middlewares/validations/isAdmin');
 const transactions = require('./Core/transactions');
-const product = require('./Generic/product');
-const type = require('./Generic/type');
-const subtype = require('./Generic/subtype');
-const sede = require('./Generic/sede');
-const provider = require('./Generic/provider');
+
+// Base
+const product = require('./Base/product');
+const type = require('./Base/type');
+const subtype = require('./Base/subtype');
+const sede = require('./Base/sede');
+const provider = require('./Base/provider');
+const user = require("./Base/user");
+//const dashboard = require("./Base/dashboard");
+
+// Incoming
 const purchase = require('./Incoming/purchase');
-const rentalOut = require('./Outgoing/rental')
-//const dashboard = require("./dashboard");
-const user = require("./Generic/user");
-const query = require("./Core/query")
+const rentalIn = require('./Incoming/rental');
+const platformIn = require('./Incoming/platform');
+
+// Out
+const teleworkClient = require('./Outgoing/teleworkClient');
+const rentalOut = require('./Outgoing/rental');
+
+// Tools
+const sendMail = require('./Tools/sendMail');
+
+// Rutas
 
 const routes = [
   auth,
@@ -25,9 +38,12 @@ const routes = [
   sede,
   provider,
   rentalOut,
-  query,
+  teleworkClient,
   //  dashboard,
   user,
+  rentalIn,
+  platformIn,
+  sendMail,
 ];
 
 const registerRoutes = (app, router, models) => {

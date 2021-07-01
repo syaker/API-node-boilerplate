@@ -15,4 +15,4 @@ const promises = {
     }),
 };
 
-module.exports.promises = promises
+module.exports.promises = promises;

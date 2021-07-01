@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     fecharegistro: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
       defaultValue: Sequelize.Sequelize.fn('getdate')
     }
   }, {

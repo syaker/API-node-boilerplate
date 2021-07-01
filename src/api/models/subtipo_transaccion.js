@@ -2,14 +2,18 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('subtipo_transaccion', {
     id_subtipo_transaccion: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
+      primaryKey: true
     },
     id_tipo_transaccion: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'tipo_transaccion',
+        key: 'id_tipo_transaccion'
+      }
     },
     nombre_subtipo: {
       type: DataTypes.STRING(30),

@@ -1,5 +1,6 @@
-const { Sequelize } = require('sequelize');
+const { promises } = require('../Core/promisesController');
 const { updateTransaction } = require('../Core/transactionController');
+const { getAllProductsStock } = require('../Tools/stockController');
 
 module.exports = {
   createAProduct: (models) => async (req, res, next) => {
@@ -29,6 +30,17 @@ module.exports = {
     }
   },
 
+  findAllProductsAvailable: (models, sequelize) => async (req, res, next) => {
+    getAllProductsStock(models, req, sequelize).then(productos_stock => {
+      console.log(productos_stock)
+      // models.producto.findAll({
+      //   where: {
+      //     id_producto
+      //   }
+      // })
+    })
+  },
+
   updateProduct: (models, sequelize) => async (req, res, next) => {
     const { tipo_producto, marca_producto, modelo_producto } = req.body;
 
@@ -47,3 +59,21 @@ module.exports = {
     );
   },
 };
+
+
+// .then(async (stock_productos) => {
+//   const promisesProductos = await stock_productos.map((producto) => {
+//     return {
+//       producto: models.producto.findOne({
+//         where: { id_producto: producto.id_producto },
+//         attributes: { exclude: 'anulado' },
+//       }),
+//       cantidad: producto.cantidad,
+//     };
+//   });
+//   Promise.all(promisesProductos).then((productos) => {
+//     productos.map((producto) => {
+      
+//     })
+//   });
+// });
